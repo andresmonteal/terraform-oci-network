@@ -21,10 +21,10 @@ data "oci_core_drgs" "drgs" {
 }
 
 data "oci_core_security_lists" "sec_lists" {
-    #Required
-    compartment_id = var.compartment_id
+  #Required
+  compartment_id = var.compartment_id
 
-    #Optional
-    display_name  = var.security_list_display_name
-    vcn_id        = data.oci_core_vcns.vcns.virtual_networks[0].id
+  #Optional
+  display_name = var.security_list_display_name
+  vcn_id       = data.oci_core_vcns.vcns.virtual_networks[0].id
 }

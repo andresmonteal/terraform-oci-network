@@ -27,7 +27,7 @@ variable "label_prefix" {
 variable "freeform_tags" {
   description = "simple key-value pairs to tag the created resources using freeform OCI Free-form tags."
   type        = map(any)
-  default = null /* {
+  default     = null /* {
     terraformed = "Please do not edit manually"
     module      = "oracle-terraform-modules/vcn/oci"
   } */
@@ -157,8 +157,8 @@ variable "nat_gateway_route_rules" {
 
 variable "attached_drg_id" {
   description = "the ID of DRG attached to the VCN"
-  type = string
-  default = null
+  type        = string
+  default     = null
 }
 
 #subnets

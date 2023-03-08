@@ -19,7 +19,7 @@ resource "oci_core_vcn" "vcn" {
 }
 
 #Module for Subnet
-/* module "subnet" {
+module "subnet" {
   source = "./modules/subnet"
 
   compartment_id = var.compartment_id
@@ -33,4 +33,4 @@ resource "oci_core_vcn" "vcn" {
 
   count = length(var.subnets) > 0 ? 1 : 0
 
-} */
+}

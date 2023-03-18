@@ -1,6 +1,14 @@
 # Copyright (c) 2019, 2021, Oracle Corporation and/or affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 
+locals {
+  default_freeform_tags = {
+    terraformed = "Please do not edit manually"
+    module      = "oracle-terraform-oci-network"
+  }
+  merged_freeform_tags = merge(var.freeform_tags, local.default_freeform_tags)
+}
+
 resource "oci_core_vcn" "vcn" {
   # We still allow module users to declare a cidr using `vcn_cidr` instead of the now recommended `vcn_cidrs`, but internally we map both to `cidr_blocks`
   # The module always use the new list of string structure and let the customer update his module definition block at his own pace.
@@ -10,27 +18,31 @@ resource "oci_core_vcn" "vcn" {
   dns_label      = var.vcn_dns_label
   is_ipv6enabled = var.enable_ipv6
 
-  freeform_tags = var.freeform_tags
+  freeform_tags = local.merged_freeform_tags
   defined_tags  = var.defined_tags
 
-  lifecycle {
-    ignore_changes = [defined_tags, freeform_tags]
-  }
 }
 
-#Module for Subnet
+# Module for Subnet
 module "subnet" {
-  source = "./modules/subnet"
+  source   = "git@github.com:andresmonteal/terraform-oci-network-subnet.git?ref=v0.1.7"
+  for_each = var.subnets
 
+  # subnet
   compartment_id = var.compartment_id
-  subnets        = var.subnets
-  enable_ipv6    = var.enable_ipv6
-  vcn_id         = oci_core_vcn.vcn.id
-  ig_route_id    = var.create_internet_gateway ? oci_core_route_table.ig[0].id : null
-  nat_route_id   = var.create_nat_gateway ? oci_core_route_table.nat[0].id : null
+  cidr_block     = each.value["cidr_block"]
+  vcn_name       = var.vcn_name
 
-  freeform_tags = var.freeform_tags
+  # optional
+  display_name     = each.key
+  dns_label        = each.value["dns_label"]
+  type             = each.value["type"]
+  sec_ls_disp_name = each.value["security_list"]
 
-  count = length(var.subnets) > 0 ? 1 : 0
+  # tags
+  freeform_tags = local.merged_freeform_tags
+  defined_tags  = var.defined_tags
 
+  # route table
+  route_table = lookup(each.value, "route_table", null)
 }

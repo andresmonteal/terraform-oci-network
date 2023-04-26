@@ -21,6 +21,12 @@ resource "oci_core_vcn" "vcn" {
   freeform_tags = local.merged_freeform_tags
   defined_tags  = var.defined_tags
 
+  # The timeouts block allows you to specify timeouts for certain operations, 20 minutes is the default value for this resource
+  timeouts {
+    create = "20m"
+    update = "20m"
+    delete = "20m"
+  }
 }
 
 # Module for Subnet

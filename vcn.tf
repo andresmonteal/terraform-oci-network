@@ -31,7 +31,7 @@ resource "oci_core_vcn" "vcn" {
 
 # Module for Subnet
 module "subnet" {
-  source   = "git@github.com:andresmonteal/terraform-oci-network-subnet.git?ref=v0.1.15"
+  source   = "git@github.com:andresmonteal/terraform-oci-network-subnet.git?ref=v0.1.16"
   for_each = var.subnets
 
   # subnet

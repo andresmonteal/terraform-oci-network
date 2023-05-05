@@ -31,13 +31,13 @@ resource "oci_core_vcn" "vcn" {
 
 # Module for Subnet
 module "subnet" {
-  source   = "git@github.com:andresmonteal/terraform-oci-network-subnet.git?ref=v0.1.16"
+  source   = "git@github.com:andresmonteal/terraform-oci-network-subnet.git?ref=v0.1.17"
   for_each = var.subnets
 
   # subnet
   compartment_id = var.compartment_id
   cidr_block     = each.value["cidr_block"]
-  vcn_name       = var.vcn_name
+  vcn_id         = oci_core_vcn.vcn.id
 
   # optional
   display_name     = each.key

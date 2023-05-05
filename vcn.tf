@@ -31,7 +31,7 @@ resource "oci_core_vcn" "vcn" {
 
 # Module for Subnet
 module "subnet" {
-  source   = "git@github.com:andresmonteal/terraform-oci-network-subnet.git?ref=v0.1.7"
+  source   = "git@github.com:andresmonteal/terraform-oci-network-subnet.git?ref=v0.1.15"
   for_each = var.subnets
 
   # subnet
@@ -47,7 +47,7 @@ module "subnet" {
 
   # tags
   freeform_tags = local.merged_freeform_tags
-  defined_tags  = var.defined_tags
+  defined_tags  = each.value["defined_tags"]
 
   # route table
   route_table = lookup(each.value, "route_table", null)

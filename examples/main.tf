@@ -1,9 +1,10 @@
 module "vcn" {
-  source = "git@github.com:andresmonteal/terraform-oci-network.git?ref=v0.2.5"
+  source = "../"
 
   for_each = var.vcns
 
   # general oci parameters
+  tenancy_ocid  = var.tenancy_ocid
   compartment   = each.value["compartment"]
   label_prefix  = lookup(each.value, "label_prefix", "none")
   defined_tags  = lookup(each.value, "defined_tags", {})

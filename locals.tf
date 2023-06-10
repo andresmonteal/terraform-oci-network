@@ -8,5 +8,5 @@ locals {
     module      = "oracle-terraform-oci-network"
   }
   merged_freeform_tags = merge(var.freeform_tags, local.default_freeform_tags)
-  compartment_id       = data.oci_identity_compartments.network_cmp.compartments[0].id
+  compartment_id       = try(data.oci_identity_compartments.network_cmp.compartments[0].id, var.compartment_id)
 }

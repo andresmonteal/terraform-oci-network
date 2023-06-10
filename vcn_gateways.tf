@@ -6,7 +6,7 @@
 ########################
 
 resource "oci_core_internet_gateway" "ig" {
-  compartment_id = var.compartment_id
+  compartment_id = try(var.compartment_id, local.compartment_id)
   display_name   = var.label_prefix == "none" ? var.internet_gateway_display_name : "${var.label_prefix}-${var.internet_gateway_display_name}"
 
   freeform_tags = local.merged_freeform_tags
@@ -18,7 +18,7 @@ resource "oci_core_internet_gateway" "ig" {
 }
 
 resource "oci_core_route_table" "ig" {
-  compartment_id = var.compartment_id
+  compartment_id = try(var.compartment_id, local.compartment_id)
   display_name   = var.label_prefix == "none" ? "internet-route" : "${var.label_prefix}-internet-route"
 
   freeform_tags = local.merged_freeform_tags
@@ -92,7 +92,7 @@ data "oci_core_services" "all_oci_services" {
 }
 
 resource "oci_core_service_gateway" "service_gateway" {
-  compartment_id = var.compartment_id
+  compartment_id = try(var.compartment_id, local.compartment_id)
   display_name   = var.label_prefix == "none" ? var.service_gateway_display_name : "${var.label_prefix}-${var.service_gateway_display_name}"
 
   freeform_tags = local.merged_freeform_tags
@@ -110,7 +110,7 @@ resource "oci_core_service_gateway" "service_gateway" {
 # NAT Gateway (NGW)
 ###################
 resource "oci_core_nat_gateway" "nat_gateway" {
-  compartment_id = var.compartment_id
+  compartment_id = try(var.compartment_id, local.compartment_id)
   display_name   = var.label_prefix == "none" ? var.nat_gateway_display_name : "${var.label_prefix}-${var.nat_gateway_display_name}"
 
   freeform_tags = local.merged_freeform_tags
@@ -124,7 +124,7 @@ resource "oci_core_nat_gateway" "nat_gateway" {
 }
 
 resource "oci_core_route_table" "nat" {
-  compartment_id = var.compartment_id
+  compartment_id = try(var.compartment_id, local.compartment_id)
   display_name   = var.label_prefix == "none" ? "nat-route" : "${var.label_prefix}-nat-route"
 
   freeform_tags = local.merged_freeform_tags
@@ -206,7 +206,7 @@ resource "oci_core_route_table" "nat" {
 
 resource "oci_core_local_peering_gateway" "lpg" {
   for_each       = var.local_peering_gateways != null ? var.local_peering_gateways : {}
-  compartment_id = var.compartment_id
+  compartment_id = try(var.compartment_id, local.compartment_id)
   display_name   = var.label_prefix == "none" ? each.key : "${var.label_prefix}-${each.key}"
 
   freeform_tags = local.merged_freeform_tags

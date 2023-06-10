@@ -1,20 +1,20 @@
 module "vcn" {
-  source = "git::ssh://devops.scmservice.us-ashburn-1.oci.oraclecloud.com/namespaces/id9de6bj2yv6/projects/claro-devops/repositories/terraform-oci-network?ref=v0.1.3"
+  source = "git@github.com:andresmonteal/terraform-oci-network.git?ref=v0.2.4"
 
   for_each = var.vcns
 
   # general oci parameters
-  compartment_id = data.oci_identity_compartments.network_cmp[each.key].compartments[0].id
-  label_prefix   = lookup(each.value, "label_prefix", "none")
-  defined_tags   = lookup(each.value, "defined_tags", {})
-  freeform_tags  = lookup(each.value, "freeform_tags", {})
+  compartment   = each.value["compartment"]
+  label_prefix  = lookup(each.value, "label_prefix", "none")
+  defined_tags  = lookup(each.value, "defined_tags", {})
+  freeform_tags = lookup(each.value, "freeform_tags", {})
 
   # vcn parameters
   lockdown_default_seclist = lookup(each.value, "lockdown_default_seclist", false) # boolean: true or false
   enable_ipv6              = lookup(each.value, "enable_ipv6", false)              # boolean: true or false
   vcn_cidrs                = each.value["cidrs"]                                   # List of IPv4 CIDRs
-  vcn_dns_label            = each.value["dns_label"]                               # string
-  vcn_name                 = each.key                                              # string
+  vcn_dns_label            = "${var.region}${each.key}${var.environment}"
+  vcn_name                 = "vcn-${var.region}-${each.key}-${var.environment}"
 
   # gateways parameters
   create_internet_gateway       = lookup(each.value, "create_internet_gateway", false) # boolean: true or false

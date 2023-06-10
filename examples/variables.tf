@@ -3,7 +3,14 @@
 
 variable "tenancy_ocid" {
   description = "root compartment"
-  default     = "ocid1.tenancy.oc1..aaaaaaaawttxo6zmedll5b35bsjcvdx5bmobygwx7avyofsxxawvwaps26xq"
+}
+
+variable "environment" {
+  default = "pr"
+}
+
+variable "region" {
+  default = "ash"
 }
 
 # subnet parameters

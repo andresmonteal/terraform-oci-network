@@ -3,4 +3,10 @@
 
 locals {
   anywhere = "0.0.0.0/0"
+  default_freeform_tags = {
+    terraformed = "Please do not edit manually"
+    module      = "oracle-terraform-oci-network"
+  }
+  merged_freeform_tags = merge(var.freeform_tags, local.default_freeform_tags)
+  compartment_id       = data.oci_identity_compartments.network_cmp.compartments[0].id
 }

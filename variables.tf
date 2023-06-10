@@ -15,7 +15,13 @@ variable "region" {
 variable "compartment_id" {
   description = "compartment id where to create all resources"
   type        = string
-  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc
+  default     = null
+}
+
+variable "compartment" {
+  description = "compartment id where to create all resources"
+  type        = string
+  default     = null
 }
 
 variable "label_prefix" {
@@ -27,10 +33,7 @@ variable "label_prefix" {
 variable "freeform_tags" {
   description = "simple key-value pairs to tag the created resources using freeform OCI Free-form tags."
   type        = map(any)
-  default     = null /* {
-    terraformed = "Please do not edit manually"
-    module      = "oracle-terraform-modules/vcn/oci"
-  } */
+  default     = null
 }
 
 variable "defined_tags" {
@@ -152,25 +155,3 @@ variable "subnets" {
   type        = map(any)
   default     = {}
 }
-
-/*
-#security list
-variable "security_list" {
-  description = "security list in a VCN"
-  type        = any
-  default     = {}
-}
-
-#network security group
-variable "nsgs" {
-  description = "network security group in a VCN"
-  type        = any
-  default     = {}
-}
-
-#security list
-variable "subnet_security_list" {
-  description = "security list in a VCN"
-  type        = any
-  default     = {}
-} */

@@ -1,5 +1,5 @@
 module "vcn" {
-  source = "git@github.com:andresmonteal/terraform-oci-network.git?ref=v0.2.4"
+  source = "git@github.com:andresmonteal/terraform-oci-network.git?ref=v0.2.5"
 
   for_each = var.vcns
 

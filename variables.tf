@@ -11,6 +11,11 @@ variable "region" {
 }
 
 # general oci parameters
+variable "tenancy_ocid" {
+  description = "The OCID of the root compartment."
+  type        = string
+  default     = null
+}
 
 variable "compartment_id" {
   description = "compartment id where to create all resources"

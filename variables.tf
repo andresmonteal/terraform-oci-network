@@ -160,3 +160,15 @@ variable "subnets" {
   type        = map(any)
   default     = {}
 }
+
+variable "drg_name" {
+  description = "(Updatable) Name of dynamic routing gateway"
+  type        = string
+  default     = null
+}
+
+variable "drg_id" {
+  description = "(Updatable) Id of dynamic routing gateway"
+  type        = string
+  default     = null
+}

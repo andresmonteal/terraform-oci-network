@@ -27,4 +27,7 @@ module "vcn" {
   create_service_gateway       = lookup(each.value, "create_service_gateway", false) # boolean: true or false
   service_gateway_display_name = lookup(each.value, "service_gateway_display_name", "service-gateway")
 
+  # drg parameters
+  drg_name = lookup(each.value, "drg_name", null)
+
 }

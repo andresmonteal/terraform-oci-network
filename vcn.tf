@@ -44,3 +44,34 @@ module "subnet" {
   # route table
   route_table = lookup(each.value, "route_table", null)
 }
+
+module "drg_route_table" {
+  count  = var.drg_name == null ? 0 : 1
+  source = "git@github.com:andresmonteal/terraform-oci-route-table.git?ref=v0.4.2"
+
+  display_name   = "rt-drg-${var.vcn_name}"
+  compartment_id = local.compartment_id
+  vcn_id         = oci_core_vcn.vcn.id
+  defined_tags   = var.defined_tags
+  freeform_tags  = local.merged_freeform_tags
+}
+
+resource "oci_core_drg_attachment" "main" {
+  count = var.drg_name == null ? 0 : 1
+  #Required
+  drg_id = local.drg_id
+
+  #Optional
+  defined_tags  = var.defined_tags
+  display_name  = "att-${var.drg_name}-${var.vcn_name}"
+  freeform_tags = local.merged_freeform_tags
+  network_details {
+    #Required
+    id   = oci_core_vcn.vcn.id
+    type = "VCN"
+
+    #Optional
+    route_table_id = module.drg_route_table[0].id
+    vcn_route_type = "VCN CIDRs"
+  }
+}

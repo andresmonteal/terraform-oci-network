@@ -72,6 +72,6 @@ resource "oci_core_drg_attachment" "main" {
 
     #Optional
     route_table_id = module.drg_route_table[0].id
-    vcn_route_type = "VCN CIDRs"
+    vcn_route_type = "VCN_CIDRS"
   }
 }

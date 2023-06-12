@@ -18,7 +18,7 @@ data "oci_identity_compartments" "network_cmp" {
 }
 
 data "oci_core_drgs" "drg" {
-  count = var.tenancy_ocid == null ? 0 : 1
+  count = var.drg_name == null ? 0 : 1
   #Required
   compartment_id = local.compartment_id
 

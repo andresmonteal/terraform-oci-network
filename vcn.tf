@@ -35,7 +35,6 @@ module "subnet" {
   display_name     = each.key
   dns_label        = each.value["dns_label"]
   type             = each.value["type"]
-  sec_ls_disp_name = each.value["security_list"]
 
   # tags
   freeform_tags = local.merged_freeform_tags

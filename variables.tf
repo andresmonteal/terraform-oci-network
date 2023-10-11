@@ -172,3 +172,12 @@ variable "drg_id" {
   type        = string
   default     = null
 }
+
+
+# route table
+
+variable "drg_route_table" {
+  description = "(Optional) add a route table name"
+  type        = map(any)
+  default     = {}
+}

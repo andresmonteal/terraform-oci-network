@@ -23,7 +23,7 @@ resource "oci_core_vcn" "vcn" {
 
 # Module for Subnet
 module "subnet" {
-  source   = "git@github.com:andresmonteal/terraform-oci-network-subnet.git?ref=v0.1.17"
+  source   = "git@github.com:andresmonteal/terraform-oci-network-subnet.git?ref=v0.2.13"
   for_each = var.subnets
 
   # subnet
@@ -46,18 +46,21 @@ module "subnet" {
 }
 
 module "drg_route_table" {
-  count  = var.drg_name == null ? 0 : 1
-  source = "git@github.com:andresmonteal/terraform-oci-route-table.git?ref=v0.4.2"
+  source = "git@github.com:andresmonteal/terraform-oci-route-table.git?ref=v0.5.4"
+  
+  for_each = var.drg_route_table
 
-  display_name   = "rt-drg-${var.vcn_name}"
+  display_name   = each.key
   compartment_id = local.compartment_id
   vcn_id         = oci_core_vcn.vcn.id
   defined_tags   = var.defined_tags
   freeform_tags  = local.merged_freeform_tags
+
+  rules = can(each.value["rules"]) ? each.value["rules"] : {}
 }
 
 resource "oci_core_drg_attachment" "main" {
-  count = var.drg_name == null ? 0 : 1
+  for_each = var.drg_route_table
   #Required
   drg_id = local.drg_id
 
@@ -71,7 +74,7 @@ resource "oci_core_drg_attachment" "main" {
     type = "VCN"
 
     #Optional
-    route_table_id = module.drg_route_table[0].id
+    route_table_id = module.drg_route_table[each.key].id
     vcn_route_type = "VCN_CIDRS"
   }
 }

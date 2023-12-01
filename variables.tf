@@ -164,7 +164,7 @@ variable "subnets" {
 variable "drg_name" {
   description = "(Updatable) Name of dynamic routing gateway"
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "drg_att_name" {

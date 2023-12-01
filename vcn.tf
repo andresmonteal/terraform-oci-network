@@ -65,7 +65,7 @@ resource "oci_core_drg_attachment" "main" {
 
   #Optional
   defined_tags  = var.defined_tags
-  display_name  = "att-${var.drg_name}-${var.vcn_name}"
+  display_name  = coalesce(var.drg_att_name,"att-${var.drg_name}-${var.vcn_name}")
   freeform_tags = local.merged_freeform_tags
   network_details {
     #Required

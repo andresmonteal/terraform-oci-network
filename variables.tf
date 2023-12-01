@@ -167,6 +167,12 @@ variable "drg_name" {
   default     = null
 }
 
+variable "drg_att_name" {
+  description = "(Updatable) Name of dynamic routing gateway attachment"
+  type        = string
+  default     = null
+}
+
 variable "drg_id" {
   description = "(Updatable) Id of dynamic routing gateway"
   type        = string

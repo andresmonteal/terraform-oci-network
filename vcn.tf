@@ -45,7 +45,7 @@ module "subnet" {
 }
 
 module "drg_route_table" {
-  source = "git@github.com:andresmonteal/terraform-oci-route-table.git?ref=v0.5.4"
+  source = "git@github.com:andresmonteal/terraform-oci-route-table.git?ref=v0.5.5"
   
   for_each = var.drg_route_table
 

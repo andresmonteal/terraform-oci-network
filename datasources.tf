@@ -16,14 +16,3 @@ data "oci_identity_compartments" "network_cmp" {
     values = [var.compartment]
   }
 }
-
-data "oci_core_drgs" "drg" {
-  count = var.drg_name == null ? 0 : 1
-  #Required
-  compartment_id = local.compartment_id
-
-  filter {
-    name   = "display_name"
-    values = [var.drg_name]
-  }
-}

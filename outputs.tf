@@ -1,11 +1,15 @@
 # Copyright (c) 2019, 2020 Oracle Corporation and/or affiliates.  All rights reserved.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 
-output "vcn_id" {
+output "id" {
   description = "id of vcn that is created"
   value       = oci_core_vcn.vcn.id
 }
 
+output "compartment_id" {
+  description = "compartment id where vcn is located"
+  value       = oci_core_vcn.vcn.compartment_id
+}
 
 output "nat_gateway_id" {
   description = "id of nat gateway if it is created"

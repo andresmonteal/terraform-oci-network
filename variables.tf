@@ -153,37 +153,3 @@ variable "attached_drg_id" {
   type        = string
   default     = null
 }
-
-# subnets
-variable "subnets" {
-  description = "Private or Public subnets in a VCN"
-  type        = map(any)
-  default     = {}
-}
-
-variable "drg_name" {
-  description = "(Updatable) Name of dynamic routing gateway"
-  type        = string
-  default     = ""
-}
-
-variable "drg_att_name" {
-  description = "(Updatable) Name of dynamic routing gateway attachment"
-  type        = string
-  default     = null
-}
-
-variable "drg_id" {
-  description = "(Updatable) Id of dynamic routing gateway"
-  type        = string
-  default     = null
-}
-
-
-# route table
-
-variable "drg_route_table" {
-  description = "(Optional) add a route table name"
-  type        = map(any)
-  default     = {}
-}

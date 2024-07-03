@@ -32,37 +32,50 @@ module "vcn" {
   region     = var.region
   # Add other variables as needed
 }
+```
 
-Files
-.gitignore: Specifies files and directories to be ignored by git.
-datasources.tf: Defines data sources to fetch existing resources.
-locals.tf: Defines local variables.
-outputs.tf: Defines output values to be exported.
-variables.tf: Defines input variables.
-vcn.tf: Defines the VCN resource.
-vcn_gateways.tf: Defines gateway resources for the VCN.
-versions.tf: Specifies the required Terraform version and provider versions.
-Example Configuration
-The examples/ directory contains a sample configuration to demonstrate how to use the module:
+## Files
 
-backend.tf: Backend configuration for Terraform state.
-main.tf: Main Terraform configuration for setting up the VCN.
-provider.tf: Provider configuration.
-values.auto.tfvars: Auto-loaded variable values.
-variables.tf: Input variables for the example configuration.
-Inputs
-Name	Description	Type	Default	Required
-vcn_name	The name of the VCN	string	n/a	yes
-cidr_block	The CIDR block for the VCN	string	n/a	yes
-region	The region where the VCN will be created	string	n/a	yes
-...	...	...	...	...
-Outputs
-Name	Description
-vcn_id	The ID of the created VCN
-vcn_cidr_block	The CIDR block of the created VCN
-...	...
-Contributing
+- `.gitignore`: Specifies files and directories to be ignored by git.
+- `datasources.tf`: Defines data sources to fetch existing resources.
+- `locals.tf`: Defines local variables.
+- `outputs.tf`: Defines output values to be exported.
+- `variables.tf`: Defines input variables.
+- `vcn.tf`: Defines the VCN resource.
+- `vcn_gateways.tf`: Defines gateway resources for the VCN.
+- `versions.tf`: Specifies the required Terraform version and provider versions.
+
+### Example Configuration
+
+The `examples/` directory contains a sample configuration to demonstrate how to use the module:
+
+- `backend.tf`: Backend configuration for Terraform state.
+- `main.tf`: Main Terraform configuration for setting up the VCN.
+- `provider.tf`: Provider configuration.
+- `values.auto.tfvars`: Auto-loaded variable values.
+- `variables.tf`: Input variables for the example configuration.
+
+## Inputs
+
+| Name       | Description                         | Type   | Default | Required |
+|------------|-------------------------------------|--------|---------|----------|
+| vcn_name   | The name of the VCN                 | string | n/a     | yes      |
+| cidr_block | The CIDR block for the VCN          | string | n/a     | yes      |
+| region     | The region where the VCN will be created | string | n/a     | yes      |
+| ...        | ...                                 | ...    | ...     | ...      |
+
+## Outputs
+
+| Name           | Description                              |
+|----------------|------------------------------------------|
+| vcn_id         | The ID of the created VCN                |
+| vcn_cidr_block | The CIDR block of the created VCN        |
+| ...            | ...                                      |
+
+## Contributing
+
 Contributions are welcome! Please open an issue or submit a pull request for any bugs, feature requests, or enhancements.
 
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
